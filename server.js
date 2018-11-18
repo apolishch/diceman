@@ -1,11 +1,12 @@
-'use strict'
 // @flow
+'use strict'
 
 import express from 'express'
 import expressBoom from 'express-boom'
 import bodyParser from 'body-parser'
 import timeout from 'connect-timeout'
 import morgan from 'morgan'
+import {roll} from './routes/roll'
 
 const port = process.env.PORT || 5790
 
@@ -18,6 +19,8 @@ app.use(expressBoom())
 app.use(timeout('5s'))
 
 app.get('/health', (req, res) => res.status(204).send())
+
+app.post('/roll', roll)
 
 app.all('*', (req, res) => res.status(404).send())
 

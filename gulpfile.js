@@ -11,7 +11,7 @@ const buildDirectory = (dirName) => gulp.src(dirName + '/**/*.js')
 
 const buildFile = (fileName) => gulp.src(fileName)
   .pipe(es2015)
-  .pipe(gulp.dest('dist'))
+  .pipe(gulp.dest('dist/'))
 
 gulp.task('default', () => buildFile('server.js'))
 gulp.task('buildSrc', () => buildDirectory('src'))
