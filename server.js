@@ -1,12 +1,12 @@
 // @flow
 'use strict'
 
-import express from 'express'
-import expressBoom from 'express-boom'
-import bodyParser from 'body-parser'
-import timeout from 'connect-timeout'
-import morgan from 'morgan'
-import {roll} from './routes/roll'
+const express = require('express')
+const expressBoom = require('express-boom')
+const bodyParser = require('body-parser')
+const timeout = require('connect-timeout')
+const morgan = require('morgan')
+const roll = require('./routes/roll').roll
 
 const port = process.env.PORT || 5790
 

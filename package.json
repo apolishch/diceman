@@ -6,8 +6,7 @@
   "author": "<cr.mansel@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "prestart": "gulp && gulp buildSrc",
-    "start": "BLUEBIRD_LONG_STACK_TRACES=1 node dist/server.js",
+    "start": "node server.js",
     "test": "mocha"
   },
   "dependencies": {
