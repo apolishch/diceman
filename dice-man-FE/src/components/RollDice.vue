@@ -9,13 +9,11 @@
       <input name="location" type="text" v-model="location"/>
       <button @click="rollDice">roll</button>
     </div>
-    <div>
-      <span>{{ long }}</span>,<span>{{ lat }}</span>
-    </div>
     <template v-if="rollResult">
       <div class="event-card">
-        <h1>{{ rollResult.name }}</h1>
-        <img :src="rollResult.featured_image">
+        <h2>{{ rollResult }}</h2>
+        <!-- <h1>{{ rollResult.name }}</h1>
+        <img :src="rollResult.featured_image"> -->
       </div>
     </template>
     <div v-if="loading" class="loading">
@@ -47,10 +45,10 @@ import RollDice from '@/services/RollDice'
         const coords = this.location.split(',')
         const coordsObj = {
           lat: coords[0],
-          long: coords[1]
+          lng: coords[1]
         }
         const result = await RollDice.getEvent(coordsObj)
-        this.rollResult = result.data.restaurant
+        this.rollResult = result.data
       },
       getCurrentLocation () {
         this.loading = true
