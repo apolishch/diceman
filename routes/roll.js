@@ -2,7 +2,10 @@
 const generateSuggestion = require('../data/generateSuggestion').generateSuggestion
 const roll = (req, res, next) => {
   const {body: {lat, lng}} = req
-  res.status(200).send(generateSuggestion(lat, lng))
+  return generateSuggestion(lat, lng).then(suggestion => {
+    console.log(suggestion)
+    res.status(200).send(suggestion)
+  })
 }
 
 module.exports = {
