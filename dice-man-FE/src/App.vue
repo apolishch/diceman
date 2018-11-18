@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <rollDice/>
+    <roll-dice/>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import RollDice from './components/RollDice'
 export default {
   name: 'app',
   components: {
-    RollDice
+    'roll-dice': RollDice
   }
 }
 </script>

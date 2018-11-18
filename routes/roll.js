@@ -5,7 +5,8 @@ const roll = (req, res, next) => {
   lat = 51.5207258
   lng = -0.0935002
   return generateSuggestion(lat, lng).then(suggestion => {
-    return res.status(200).send(suggestion)
+    console.log(suggestion)
+    res.status(200).send(suggestion)
   })
 }
 
