@@ -12,6 +12,12 @@
     <div>
       <span>{{ long }}</span>,<span>{{ lat }}</span>
     </div>
+    <template v-if="rollResult">
+      <div class="event-card">
+        <h1>{{ rollResult.name }}</h1>
+        <img :src="rollResult.featured_image">
+      </div>
+    </template>
   </div>
 </template>
 
@@ -24,7 +30,8 @@ import RollDice from '@/services/RollDice'
         location: null,
         long: null,
         lat: null,
-        accuracy: null
+        accuracy: null,
+        rollResult: null
       }
     },
     created () {
@@ -37,7 +44,7 @@ import RollDice from '@/services/RollDice'
           long: this.long
         }
         const result = await RollDice.getEvent(coords)
-        console.log(result)
+        this.rollResult = result.data.restaurant
       },
       getCurrentLocation () {
         const options = {
@@ -60,6 +67,7 @@ import RollDice from '@/services/RollDice'
   }
 </script>
 
-<style scoped lang="scss">
-
+<style scoped>
+.event-card {
+}
 </style>
