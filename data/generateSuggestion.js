@@ -28,7 +28,9 @@ const generateSuggestion = (lat, lng) => {
       return locationIqCommon(lat, lng, buildingType).then(response => {
         const buildings = response.data
         console.log('buildings.data', buildings)
-        return `${lang[buildingType]} ${randomizer(buildings).name}`
+        const building = randomizer(buildings)
+        console.log('building', building)
+        return `${lang[buildingType]} ${building.name}, location ${building.lat}, ${building.lon}`
       }).catch(e => {
         console.log('e', e)
         return `Suck a dick`
@@ -37,7 +39,9 @@ const generateSuggestion = (lat, lng) => {
       return zomatoSpecials(lat, lng).then(res => {
         const restaurants = res.data.nearby_restaurants
         console.log('restaurants', restaurants)
-        return `Go for dinner at ${randomizer(restaurants).restaurant.name}`
+        const restaurant = randomizer(restaurants).restaurant
+        console.log('restaurant', restaurant)
+        return `Go for dinner at ${restaurant.name}, location ${restaurant.location.zipcode}`
       })
     case 'wildcard':
       return Promise.resolve().then(() => {
