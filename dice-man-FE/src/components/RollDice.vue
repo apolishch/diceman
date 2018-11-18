@@ -1,51 +1,60 @@
 <template>
   <div>
     <h1>Roll the dice</h1>
-    <button @click="getCurrentLocation">get my location</button>
-    <input type="text" v-model="location"/>
-    <button @click="rollDice($event)">roll</button>
     <div>
-      <span>{{ long }}</span>
-      <span>{{ lat }}</span>
+      <button @click="getCurrentLocation">Get my location</button>
+    </div>
+    <div>
+      <label for="location">Co ordinates</label>
+    <input name="location" type="text" v-model="location"/>
+    <button @click="rollDice">roll</button>
+    </div>
+    <div>
+      <span>{{ long }}</span>,<span>{{ lat }}</span>
     </div>
   </div>
 </template>
 
 <script>
+import RollDice from '@/services/RollDice'
+
   export default {
     data () {
       return {
         location: null,
         long: null,
         lat: null,
+        accuracy: null
       }
     },
+    created () {
+      this.getCurrentLocation()
+    },
     methods: {
-      rollDice (location) {
-        console.log(location)
+      async rollDice () {
+        const coords = {
+          lat: this.lat,
+          long: this.long
+        }
+        const result = await RollDice.getEvent(coords)
+        console.log(result)
       },
       getCurrentLocation () {
-        var options = {
+        const options = {
           enableHighAccuracy: true,
           timeout: 5000,
           maximumAge: 0
-        };
-
-        function success(pos) {
-          const crd = pos.coords
-          console.log('success')
-          console.log(crd.latitude)
-          console.log(crd.longitude)
-          this.lat = crd.latitude
-          this.long = crd.longitude
-          this.accuracy = crd.accuracy
         }
-
-        function error(err) {
-          console.error(`ERROR(${err.code}): ${err.message}`)
-        }
-
-        navigator.geolocation.getCurrentPosition(success, error, options)
+        navigator.geolocation.getCurrentPosition(this.success, this.error, options)
+      },
+      error(error) {
+        console.error(`ERROR(${error.code}): ${error.message}`)
+      },
+      success (pos) {
+        const crd = pos.coords
+        this.lat = crd.latitude
+        this.long = crd.longitude
+        this.accuracy = crd.accuracy
       }
     }
   }
