@@ -6,7 +6,7 @@
   "author": "<cr.mansel@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js",
+    "start": "cd dice-man-FE && npm install && npm run build && cd .. && node server.js",
     "test": "mocha"
   },
   "dependencies": {
