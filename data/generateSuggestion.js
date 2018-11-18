@@ -37,7 +37,7 @@ const generateSuggestion = (lat, lng) => {
       return zomatoSpecials(lat, lng).then(res => {
         const restaurants = res.data.nearby_restaurants
         console.log('restaurants', restaurants)
-        return randomizer(restaurants)
+        return `Go for dinner at ${randomizer(restaurants).restaurant.name}`
       })
     case 'wildcard':
       return Promise.resolve().then(() => {
