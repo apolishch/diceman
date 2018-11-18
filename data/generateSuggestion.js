@@ -8,11 +8,12 @@ const zomatoSpecials = (lat, lng) => axios.get(`https://developers.zomato.com/ap
 const randomizeArray = (length) => Math.round(Math.random() * (length - 1))
 const randomizer = (array) => array[randomizeArray(array.length)]
 
-const locationIqBuildingTypes = ['pub', 'cinema', 'park']
+const locationIqBuildingTypes = ['pub', 'cinema', 'park', 'place_of_worship']
 const lang = {
   pub: 'Have a drink at',
   park: 'Go dogging at',
-  cinema: 'Watch blade 2 at'
+  cinema: 'Watch blade 2 at',
+  place_of_worship: 'Kneel and praise sukaldari in'
 }
 
 const generateSuggestion = (lat, lng) => {
