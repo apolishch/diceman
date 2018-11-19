@@ -71,7 +71,9 @@ import RollDice from '@/services/RollDice'
       async getNewLocation () {
         const search = this.search
         const result = await RollDice.getCoords (search)
-        alert(result)
+        this.lat = result.data.lat
+        this.long = result.data.lng
+        this.rollDice()
       },
 
       getCurrentLocation () {
