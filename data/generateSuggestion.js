@@ -52,7 +52,7 @@ const locationIqLang = {
   ],
   supermarket: [
     'Buy a whole chicken from',
-    'Spend exactly 7.64 at',
+    `Spend exactly ${Number.parseFloat(Math.random()*20).toFixed(2)} at`,
     'Check out the beer selection at'
   ]
 }
