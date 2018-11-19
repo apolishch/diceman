@@ -153,7 +153,7 @@ import RollDice from '@/services/RollDice'
     padding: 18px 25px;
     background-color: #4A90E2;
     border: 1px solid white;
-    border-radius: 3px;
+    border-radius: 8px;
     color: white;
     vertical-align: middle;
     width: 100%;
