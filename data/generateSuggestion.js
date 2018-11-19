@@ -7,9 +7,14 @@ const hourSanitizer = require('../utils/hourSanitizer').hourSanitizer
 const locationIqCommon = (lat, lng, buildingType) => axios.get(`https://us1.locationiq.com/v1/nearby.php?key=374751e184aa9e&lat=${lat}&lon=${lng}&tag=${buildingType}&radius=1000&format=json`)
 const zomatoSpecials = (lat, lng) => axios.get(`https://developers.zomato.com/api/v2.1/geocode?lat=${lat}&lon=${lng}`, { headers: { 'user-key': '7835bf209a55dcf3b85f263d75ebbf38' } })
 const recentMovies = () => axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=0eae24cb637469dc039c8ffee60e0b6b&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=2018-10-01`)
-
+const reverseGeocode = (lat, lng) => axios.get(`https://eu1.locationiq.com/v1/reverse.php?key=374751e184aa9e&lat=${lat}&lon=${lng}&format=json`)
 const nokiaFetchLandmarks = (lat, lng) => axios.get(`https://places.cit.api.here.com/places/v1/discover/explore?app_id=wa1oln3GOvlxfEeeUgYj&app_code=9kic1ARs38mJfJSD7Z9aOw&at=${lat},${lng}&pretty`)
-
+const predictHq = (lat, lng) => {
+  const timeBound = moment().format('YYYY-MM-DD')
+  return axios.get(`https://api.predicthq.com/v1/events/?within=3000m@${lat},${lng}&start.gte=${encodeURIComponent(timeBound)}&start.lte=${encodeURIComponent(timeBound)}`, {
+    headers: {Authorization: `Bearer BZUy6O3xXmDzy52CWkr8OqqyM0Hzii`}
+  })
+}
 const randomizeArray = (length) => Math.round(Math.random() * (length - 1))
 const randomizer = (array) => array[randomizeArray(array.length)]
 
@@ -96,7 +101,7 @@ const wildCardLang = [
 
 const generateSuggestion = (lat, lng) => {
   console.log(lat, lng)
-  const apiTypes = ['locationIq', 'zomato', 'wildcard', 'cinema', 'nokia']
+  const apiTypes = ['locationIq', 'zomato', 'wildcard', 'cinema', 'nokia', 'predictHq']
   const api = randomizer(apiTypes)
 
   switch (api) {
@@ -110,7 +115,7 @@ const generateSuggestion = (lat, lng) => {
         return `${randomizer(locationIqLang[buildingType])} ${building.name}, location ${building.lat}, ${building.lon}`
       }).catch(e => {
         console.log('e', e)
-        return `Suck a dick`
+        return randomizer(wildCardLang)
       })
     case 'zomato':
       return zomatoSpecials(lat, lng).then(res => {
@@ -134,7 +139,7 @@ const generateSuggestion = (lat, lng) => {
         return `Watch ${movie.title} at ${cinema.name}, location ${cinema.lat}, ${cinema.lon}`
       }).catch(e => {
         console.log('e', e)
-        return `Suck a dick`
+        return randomizer(wildCardLang)
       })
     case 'nokia':
       return nokiaFetchLandmarks(lat, lng)
@@ -166,6 +171,17 @@ const generateSuggestion = (lat, lng) => {
           const {category: {id: categoryId}, title, vicinity} = randomizer(filteredItems)
           return `${randomizer(nokiaHereLang[categoryId])} ${title}. Located at: ${vicinity}`
         })
+    case 'predictHq':
+      return predictHq(lat, lng).then(result => {
+        const item = randomizer(result.data.results)
+        return reverseGeocode(item.location[1], item.location[0]).then(res => {
+          return `Go watch ${item.title} at ${res.data.display_name}`
+        })
+
+      }).catch(e => {
+        console.log('e', e)
+        return randomizer(wildCardLang)
+      })
     case 'wildcard':
       return Promise.resolve().then(() => {
         return randomizer(wildCardLang)
