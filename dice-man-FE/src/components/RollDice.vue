@@ -4,11 +4,16 @@
     <div>
       <button @click="getCurrentLocation">Get my location</button>
     </div>
+
     <div>
       <label for="location">Co ordinates</label>
       <input name="location" type="text" v-model="location"/>
-      <button @click="rollDice">roll</button>
+      <button class="rollButton" @click="rollDice">
+        <i class="fa fa-envelope-o"></i>
+        Invoke My Location
+      </button>
     </div>
+
     <template v-if="rollResult">
       <div class="event-card">
         <h2>{{ rollResult }}</h2>
@@ -16,6 +21,7 @@
         <img :src="rollResult.featured_image"> -->
       </div>
     </template>
+
     <div v-if="loading" class="loading">
       <h1>Loading...</h1>
     </div>
@@ -24,7 +30,6 @@
 
 <script>
 import RollDice from '@/services/RollDice'
-
   export default {
     data () {
       return {
@@ -36,9 +41,11 @@ import RollDice from '@/services/RollDice'
         rollResult: null
       }
     },
+
     mounted () {
       this.getCurrentLocation()
     },
+
     methods: {
       async rollDice () {
         // const coords = { lat: this.lat, long: this.long }
@@ -50,6 +57,7 @@ import RollDice from '@/services/RollDice'
         const result = await RollDice.getEvent(coordsObj)
         this.rollResult = result.data
       },
+
       getCurrentLocation () {
         this.loading = true
         const options = {
@@ -59,10 +67,12 @@ import RollDice from '@/services/RollDice'
         }
         navigator.geolocation.getCurrentPosition(this.success, this.error, options)
       },
+
       error (error) {
         console.error(`ERROR(${error.code}): ${error.message}`)
         this.loading = false
       },
+
       success (pos) {
         const crd = pos.coords
         this.lat = crd.latitude
@@ -87,4 +97,13 @@ import RollDice from '@/services/RollDice'
   align-items: center;
   background: white;
 }
+
+.rollButton {
+    padding: 20px;
+    background-color: #4A90E2;
+    border: 1px solid white;
+    border-radius: 3px;
+    color: white;
+}
+
 </style>
