@@ -10,7 +10,7 @@ const geocode = (req, res, next) => {
   return locationIqGeocode(search).then(response => {
     console.log('location', response.data[0])
     const location = response.data[0]
-    return res.status(200).send({lat: location.lat, lng: location.lon})
+    return res.status(200).send({lat: location.lat, lng: location.lon, displayName: location.display_name})
   })
 }
 
