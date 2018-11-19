@@ -20,6 +20,7 @@
         <img src="/assets/location-icon.png" alt="location"/>
         Invoke Search
       </button>
+      <DiceButton />
     </div>
 
     <div>
@@ -53,8 +54,14 @@
 </template>
 
 <script>
+import DiceButton from '@/components/DiceButton'
 import RollDice from '@/services/RollDice'
+
   export default {
+    components: {
+      DiceButton
+    },
+
     data () {
       return {
         search: null,
