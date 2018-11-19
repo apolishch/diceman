@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const timeout = require('connect-timeout')
 const morgan = require('morgan')
 const roll = require('./routes/roll').roll
+const geocode = require('./routes/geocode').geocode
 const path = require('path')
 const cors = require('cors')
 const port = process.env.PORT || 5790
@@ -27,6 +28,7 @@ app.get('/', (req, res, next) => {
 })
 
 app.post('/roll', roll)
+app.get('/geocode', geocode)
 
 app.all('*', (req, res) => res.status(404).send())
 
