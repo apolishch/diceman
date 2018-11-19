@@ -36,7 +36,7 @@ import RollDice from '@/services/RollDice'
         rollResult: null
       }
     },
-    created () {
+    mounted () {
       this.getCurrentLocation()
     },
     methods: {
@@ -78,12 +78,10 @@ import RollDice from '@/services/RollDice'
 <style scoped>
 .loading {
   position: absolute;
-  width: 100vh;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
