@@ -145,7 +145,7 @@ const generateSuggestion = (lat, lng) => {
       return nokiaFetchLandmarks(lat, lng)
         .then(response => {
           const filteredItems = response.data.results.items.filter((item) => {
-            if(item.openingHours && item.openingHours.text) {
+            if (item.openingHours && item.openingHours.text) {
               let openingTimes = item.openingHours.text.split('-').map((el) => el.trim())
               openingTimes[1] = openingTimes[1].split(': ')
               openingTimes = openingTimes.reduce((memo, item) => {
@@ -173,11 +173,13 @@ const generateSuggestion = (lat, lng) => {
         })
     case 'predictHq':
       return predictHq(lat, lng).then(result => {
+        const items = result.data.results
+        console.log('items', items)
         const item = randomizer(result.data.results)
+        console.log('item', item)
         return reverseGeocode(item.location[1], item.location[0]).then(res => {
-          return `Go watch ${item.title} at ${res.data.display_name}`
+          return `Go watch ${item.title} \n starting ${moment(item.start).format('HH:mm')} \n at ${res.data.display_name}`
         })
-
       }).catch(e => {
         console.log('e', e)
         return randomizer(wildCardLang)
