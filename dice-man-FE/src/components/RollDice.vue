@@ -18,6 +18,11 @@
       </button>
     </div>
 
+    <div>
+        <label for="search">Search Location</label>
+        <input @click="getNewLocation" name="search" type="text" v-model="search"/>
+    </div>
+
     <template v-if="rollResult">
       <div class="event-card">
         <h2>{{ rollResult }}</h2>
@@ -37,6 +42,7 @@ import RollDice from '@/services/RollDice'
   export default {
     data () {
       return {
+        search: null,
         loading: false,
         location: null,
         long: null,
@@ -60,6 +66,12 @@ import RollDice from '@/services/RollDice'
         }
         const result = await RollDice.getEvent(coordsObj)
         this.rollResult = result.data
+      },
+
+      async getNewLocation () {
+        const search = this.search
+        const result = await RollDice.getCoords (search)
+        alert(result)
       },
 
       getCurrentLocation () {
