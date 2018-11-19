@@ -14,25 +14,35 @@
       <div class="row">
         <div class="col-md-5">
           <button class="primaryButton" @click="getCurrentLocation">
-            <img src="/assets/location-icon.png" alt="location"/>
-            Invoke My Location
+            <div class="row buttonStyling">
+              <div class="col-md-2">
+                <img src="/assets/location-icon.png" alt="location"/>
+              </div>
+              <div class="col-md-8">
+                <span>
+                  Invoke My Location
+                </span>
+              </div>
+            </div>
           </button>
         </div>
 
         <div class="col-md-7">
-          <button class="primaryButton searchButton" @click="searchLocation">
-            <img src="/assets/search-icon.png" alt="location"/>
-            Invoke Search
-          </button>
+          <div class="primaryButton searchButton">
+            <div class="row buttonStyling">
+              <div class="col-md-2">
+                <button class="searchIconButton" @click="searchLocation">
+                  <img src="/assets/search-icon.png" alt="location"/>
+                </button>
+              </div>
+              <div class="col-md-10">
+                <input class="searchInput text-center text-md-left" name="search" type="text" placeholder="Search For My Location" v-model="search" @keyup.enter="searchLocation"/>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <div>
-        <label for="search">Search Location</label>
-        <input name="search" type="text" v-model="search"/>
-    </div>
-
     <div class="locationDisplay">
       <span>
         {{ location }}
@@ -147,6 +157,23 @@ import RollDice from '@/services/RollDice'
   margin: 10px;
 }
 
+.buttonStyling {
+  align-items: center;
+}
+
+.searchInput {
+  color: white;
+  border: none;
+  width: 100%;
+  background-color: RGBA(0, 0, 0, 0);
+  /* text-align: center; */
+}
+
+.searchInput::placeholder {
+  color: white;
+  /* text-align: center; */
+}
+
 .primaryButton {
     display: block;
     margin: 20px auto;
@@ -161,6 +188,11 @@ import RollDice from '@/services/RollDice'
 
 .primaryButton.searchButton {
   background-color: RGBA(77, 144, 226, 0.24)
+}
+
+.searchIconButton {
+  background-color: RGBA(0, 0, 0, 0);
+  border: none;
 }
 
 .primaryButton img {
