@@ -36,6 +36,15 @@ const nokiaHereLang = {
   'bar-pub': 'Go ask the barman to serve you what he would serve fratparty on spring break at'
 }
 
+const wildCardLang = [
+  'Run into the nearest open door and howl like a wolf.',
+  'Follow the next stranger you see without speaking for 10 minutes',
+  'Do 10 pushups',
+  "Ask the next person you see for their phone number in batman's voice",
+  'Scream the lyrics to Shakira - Whenever Wherever at the top of your voice. Immitate the dance moves',
+  'Get naked and sprint straight ahead until you run out of breath.'
+]
+
 const generateSuggestion = (lat, lng) => {
   console.log(lat, lng)
   const apiTypes = ['locationIq', 'zomato', 'wildcard', 'cinema', 'nokia']
@@ -110,7 +119,7 @@ const generateSuggestion = (lat, lng) => {
         })
     case 'wildcard':
       return Promise.resolve().then(() => {
-        return 'Go to Dirty Dicks. Ask the barman what you would order if you were a sorority girl on hell week.'
+        return randomizer(wildCardLang)
       })
   }
 }
