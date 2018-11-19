@@ -1,8 +1,5 @@
 <template>
   <div class="rollDicePage">
-    <div class="dicemanLogoWrapper">
-      <img src="/assets/DicemanLogo.png" alt="Logo"/>
-    </div>
 
     <!--
         <div>
@@ -10,16 +7,25 @@
         </div>
     -->
 
-    <div class="row">
-      <button class="primaryButton" @click="getCurrentLocation">
-        <img src="/assets/location-icon.png" alt="location"/>
-        Invoke My Location
-      </button>
+    <div class="locationWrapper">
+      <div class="dicemanLogoWrapper">
+        <img src="/assets/DicemanLogo.png" alt="Logo"/>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <button class="primaryButton" @click="getCurrentLocation">
+            <img src="/assets/location-icon.png" alt="location"/>
+            Invoke My Location
+          </button>
+        </div>
 
-      <button class="primaryButton searchButton" @click="searchLocation">
-        <img src="/assets/search-icon.png" alt="location"/>
-        Invoke Search
-      </button>
+        <div class="col-md-7">
+          <button class="primaryButton searchButton" @click="searchLocation">
+            <img src="/assets/search-icon.png" alt="location"/>
+            Invoke Search
+          </button>
+        </div>
+      </div>
     </div>
 
     <div>
@@ -129,8 +135,12 @@ import RollDice from '@/services/RollDice'
   background: white;
 }
 
+.locationWrapper {
+  padding: 10% 20% 40px 20%;
+}
+
 .dicemanLogoWrapper {
-  padding: 150px 300px 40px 300px;
+  margin-bottom: 30px;
 }
 
 .locationDisplay {
@@ -146,6 +156,7 @@ import RollDice from '@/services/RollDice'
     border-radius: 3px;
     color: white;
     vertical-align: middle;
+    width: 100%;
 }
 
 .primaryButton.searchButton {
