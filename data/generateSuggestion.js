@@ -22,18 +22,67 @@ const nokiaHereCategories = [
   'dance-night-club'
 ]
 const locationIqLang = {
-  pub: 'Have a drink at',
-  park: 'Go dogging at',
-  place_of_worship: 'Kneel and praise sukaldari in',
-  supermarket: 'Buy a whole chicken from'
+  pub: [
+    'Have a drink at',
+    'Have a shot of tequila at',
+    'Have a pint of stout at',
+    'Have a pint of ale at',
+    'Have a cider at',
+    'Have a whisky on the rocks at',
+    'Check out the beer selection at'
+  ],
+  park: [
+    'Go dogging at',
+    'Go for a run at',
+    'Go for a walk at',
+    'Go feed some squirrels at',
+    'Strike up a conversation with a stranger at'
+  ],
+  place_of_worship: [
+    'Kneel and praise sukaldari in',
+    'Talk to a religious leader at',
+    'Contemplate the universe at',
+    'Look at the facade of',
+    'Get into a religious argument at'
+  ],
+  supermarket: [
+    'Buy a whole chicken from',
+    'Spend exactly 7.64 at',
+    'Check out the beer selection at'
+  ]
 }
 const nokiaHereLang = {
-  'snacks-fast-food': 'Buy a stranger something from',
-  'restaurant': 'Buy the second most expensive main at',
-  'going-out': 'Go get wankered(start with three Irish Carbombs) at',
-  'food-drink': 'Go have a cup of coffee at',
-  'dance-night-club': 'Take somebody home from',
-  'bar-pub': 'Go ask the barman to serve you what he would serve fratparty on spring break at'
+  'snacks-fast-food': [
+    'Buy a stranger something from',
+    'Pick up and then put down everything in the self service section of'
+  ],
+  'restaurant': [
+    'Buy the second most expensive main at',
+    'Buy the vegetarian option at',
+    'Buy 4 starters at',
+    'Sit down, and only order a packet of crisps at',
+    'Flirt with the waitstaff at'
+  ],
+  'going-out': [
+    'Go get wankered(start with three Irish Carbombs) at'
+  ],
+  'food-drink': [
+    'Go have a cup of coffee at',
+    'Go have a sandwich at',
+    'Go do 10 pushups at'
+  ],
+  'dance-night-club': [
+    'Take somebody home from',
+    'Buy some drugs at',
+    'Start a fight at',
+    'Dance until closing time at',
+    'Talk to at least 20 strangers at'
+  ],
+  'bar-pub': [
+    'Go ask the barman to serve you what he would serve fratparty on spring break at',
+    'Go talk to three strangers at',
+    'Have a drink of your choice at'
+  ]
 }
 
 const wildCardLang = [
@@ -58,7 +107,7 @@ const generateSuggestion = (lat, lng) => {
         console.log('buildings.data', buildings)
         const building = randomizer(buildings)
         console.log('building', building)
-        return `${locationIqLang[buildingType]} ${building.name}, location ${building.lat}, ${building.lon}`
+        return `${randomizer(locationIqLang[buildingType])} ${building.name}, location ${building.lat}, ${building.lon}`
       }).catch(e => {
         console.log('e', e)
         return `Suck a dick`
@@ -115,7 +164,7 @@ const generateSuggestion = (lat, lng) => {
             }
           })
           const {category: {id: categoryId}, title, vicinity} = randomizer(filteredItems)
-          return `${nokiaHereLang[categoryId]} ${title}. Located at: ${vicinity}`
+          return `${randomizer(nokiaHereLang[categoryId])} ${title}. Located at: ${vicinity}`
         })
     case 'wildcard':
       return Promise.resolve().then(() => {
