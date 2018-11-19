@@ -10,14 +10,14 @@
         </div>
     -->
 
-    <div>
-      <button class="rollButton" @click="getCurrentLocation">
+    <div class="row">
+      <button class="primaryButton" @click="getCurrentLocation">
         <img src="/assets/location-icon.png" alt="location"/>
         Invoke My Location
       </button>
 
-      <button class="rollButton" @click="searchLocation">
-        <img src="/assets/location-icon.png" alt="location"/>
+      <button class="primaryButton searchButton" @click="searchLocation">
+        <img src="/assets/search-icon.png" alt="location"/>
         Invoke Search
       </button>
     </div>
@@ -137,7 +137,7 @@ import RollDice from '@/services/RollDice'
   margin: 10px;
 }
 
-.rollButton {
+.primaryButton {
     display: block;
     margin: 20px auto;
     padding: 18px 25px;
@@ -148,7 +148,11 @@ import RollDice from '@/services/RollDice'
     vertical-align: middle;
 }
 
-.rollButton img {
+.primaryButton.searchButton {
+  background-color: RGBA(77, 144, 226, 0.24)
+}
+
+.primaryButton img {
     width: 18px;
     vertical-align: middle;
 }
