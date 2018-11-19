@@ -9,7 +9,7 @@ const roll = (req, res, next) => {
   return generateSuggestion(lat, lng).then(suggestion => {
     console.log(suggestion)
     res.status(200).send(suggestion)
-  })
+  }).catch(console.log)
 }
 
 module.exports = {
