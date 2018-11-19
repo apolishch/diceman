@@ -20,7 +20,6 @@
         <img src="/assets/location-icon.png" alt="location"/>
         Invoke Search
       </button>
-      <DiceButton />
     </div>
 
     <div>
@@ -34,10 +33,9 @@
       </span>
     </div>
 
-    <button class="rollButton" @click="rollDice">
-      <img src="/assets/location-icon.png" alt="location"/>
-      His will be done
-    </button>
+    <div @click="rollDice">
+      <DiceButton/>
+    </div>
 
     <template v-if="rollResult">
       <div class="event-card">
@@ -99,10 +97,15 @@ import RollDice from '@/services/RollDice'
 
       async searchLocation (pos) {
         console.log('search', pos && pos.coords ? `${pos.coords.latitude}, ${pos.coords.longitude}` : this.search)
-        const searchResult = await RollDice.searchLocation(pos && pos.coords ? `${pos.coords.latitude}, ${pos.coords.longitude}` : this.search)
-        this.lat = searchResult.data.lat
-        this.lng = searchResult.data.lng
-        this.location = searchResult.data.displayName
+        const searchQuery = pos && pos.coords ? `${pos.coords.latitude}, ${pos.coords.longitude}` : this.search
+        if (searchQuery) {
+          const searchResult = await RollDice.searchLocation(searchQuery)
+          this.lat = searchResult.data.lat
+          this.lng = searchResult.data.lng
+          this.location = searchResult.data.displayName
+        } else {
+          this.location = 'Invalid Search'
+        }
       },
 
       error (error) {
