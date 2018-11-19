@@ -8,10 +8,12 @@ const timeout = require('connect-timeout')
 const morgan = require('morgan')
 const roll = require('./routes/roll').roll
 const path = require('path')
+const cors = require('cors')
 const port = process.env.PORT || 5790
 
 let app = express()
 
+app.use(cors())
 app.use(morgan('dev'))
 
 app.use(bodyParser.json({limit: '500kb'}))
