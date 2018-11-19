@@ -22,6 +22,8 @@
         Invoke Search
       </button>
 
+      <DiceButton />
+
       <span>
         {{ locationResult }}
       </span>
@@ -47,8 +49,14 @@
 </template>
 
 <script>
+import DiceButton from '@/components/DiceButton'
 import RollDice from '@/services/RollDice'
+
   export default {
+    components: {
+      DiceButton
+    },
+
     data () {
       return {
         search: null,
