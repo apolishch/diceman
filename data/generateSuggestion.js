@@ -37,7 +37,6 @@ const locationIqLang = {
     'Check out the beer selection at'
   ],
   park: [
-    'Go dogging at',
     'Go for a run at',
     'Go for a walk at',
     'Go feed some squirrels at',
@@ -52,7 +51,7 @@ const locationIqLang = {
   ],
   supermarket: [
     'Buy a whole chicken from',
-    `Spend exactly ${Number.parseFloat(Math.random()*20).toFixed(2)} at`,
+    `Spend exactly ${Number.parseFloat(Math.random() * 20).toFixed(2)} at`,
     'Check out the beer selection at'
   ]
 }
@@ -69,7 +68,7 @@ const nokiaHereLang = {
     'Flirt with the waitstaff at'
   ],
   'going-out': [
-    'Go get wankered(start with three Irish Carbombs) at'
+    'Order three Irish Carbombs at'
   ],
   'food-drink': [
     'Go have a cup of coffee at',
@@ -78,13 +77,11 @@ const nokiaHereLang = {
   ],
   'dance-night-club': [
     'Take somebody home from',
-    'Buy some drugs at',
-    'Start a fight at',
     'Dance until closing time at',
     'Talk to at least 20 strangers at'
   ],
   'bar-pub': [
-    'Go ask the barman to serve you what he would serve fratparty on spring break at',
+    'Go ask the barman to serve you what he would serve a fratparty on spring break, at',
     'Go talk to three strangers at',
     'Have a drink of your choice at'
   ]
@@ -95,8 +92,7 @@ const wildCardLang = [
   'Follow the next stranger you see without speaking for 10 minutes',
   'Do 10 pushups',
   "Ask the next person you see for their phone number in batman's voice",
-  'Scream the lyrics to Shakira - Whenever Wherever at the top of your voice. Immitate the dance moves',
-  'Get naked and sprint straight ahead until you run out of breath.'
+  'Scream the lyrics to Shakira - Whenever Wherever at the top of your voice. Immitate the dance moves'
 ]
 
 const generateSuggestion = (lat, lng) => {
