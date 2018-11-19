@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <img src="/assets/DicemanLogo.png" alt="Logo"/>
+  <div class="rollDicePage">
+    <div class="dicemanLogoWrapper">
+      <img src="/assets/DicemanLogo.png" alt="Logo"/>
+    </div>
 
     <!--
         <div>
@@ -9,21 +11,18 @@
     -->
 
     <div>
-      <label for="location">Co ordinates</label>
-      <input name="location" type="text" v-model="location"/>
-
-      <button class="rollButton" @click="rollDice">
+      <button class="rollButton" @click="getCurrentLocation">
         <img src="/assets/location-icon.png" alt="location"/>
         Invoke My Location
       </button>
 
-      <button class="rollButton" @click="rollTarget">
+      <button class="rollButton" @click="searchLocation">
         <img src="/assets/location-icon.png" alt="location"/>
         Invoke Search
       </button>
 
       <span>
-        {{ locationResult }}
+        {{ location }}
       </span>
     </div>
 
@@ -31,6 +30,11 @@
         <label for="search">Search Location</label>
         <input name="search" type="text" v-model="search"/>
     </div>
+
+    <button class="rollButton" @click="rollDice">
+      <img src="/assets/location-icon.png" alt="location"/>
+      His will be done
+    </button>
 
     <template v-if="rollResult">
       <div class="event-card">
@@ -53,9 +57,8 @@ import RollDice from '@/services/RollDice'
       return {
         search: null,
         loading: false,
-        location: null,
-        locationResult: "Nada",
-        long: null,
+        location: 'Nowhere',
+        lng: null,
         lat: null,
         accuracy: null,
         rollResult: null
@@ -68,46 +71,35 @@ import RollDice from '@/services/RollDice'
 
     methods: {
       async rollDice () {
-        // const coords = { lat: this.lat, long: this.long }
-        const coords = this.location.split(',')
-        const coordsObj = {
-          lat: coords[0],
-          lng: coords[1]
-        }
-        const result = await RollDice.getEvent(coordsObj)
-        this.rollResult = result.data
-      },
-
-      async rollTarget () {
-        const searchResult = await RollDice.getCoords(this.search)
         const eventResult  = await RollDice.getEvent({
-          lat: searchResult.data.lat,
-          lng: searchResult.data.lng
+          lat: this.lat,
+          lng: this.lng
         })
         this.rollResult = eventResult.data
       },
 
-      getCurrentLocation () {
-        this.loading = true
+      async getCurrentLocation () {
+        // this.loading = true
         const options = {
           enableHighAccuracy: true,
           timeout: 5000,
           maximumAge: 0
         }
-        navigator.geolocation.getCurrentPosition(this.success, this.error, options)
+        await navigator.geolocation.getCurrentPosition(this.searchLocation, this.error, options)
+      },
+
+      async searchLocation (pos) {
+        console.log('pos', pos)
+        console.log('this', this)
+        console.log('search', pos && pos.coords ? `${pos.coords.latitude}, ${pos.coords.longitude}` : this.search)
+        const searchResult = await RollDice.searchLocation(pos && pos.coords ? `${pos.coords.latitude}, ${pos.coords.longitude}` : this.search)
+        this.lat = searchResult.data.lat
+        this.lng = searchResult.data.lng
+        this.location = searchResult.data.displayName
       },
 
       error (error) {
         console.error(`ERROR(${error.code}): ${error.message}`)
-        this.loading = false
-      },
-
-      success (pos) {
-        const crd = pos.coords
-        this.lat = crd.latitude
-        this.long = crd.longitude
-        this.accuracy = crd.accuracy
-        this.location = `${this.lat},${this.long}`
         this.loading = false
       }
     }
@@ -127,6 +119,10 @@ import RollDice from '@/services/RollDice'
   background: white;
 }
 
+.dicemanLogoWrapper {
+  margin-bottom: 10px;
+}
+
 .rollButton {
     display: block;
     margin: 20px auto;
@@ -139,7 +135,7 @@ import RollDice from '@/services/RollDice'
 }
 
 .rollButton img {
-    height: 18px;
+    width: 18px;
     vertical-align: middle;
 }
 
