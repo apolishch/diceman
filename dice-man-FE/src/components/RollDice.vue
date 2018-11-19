@@ -16,6 +16,10 @@
         <img src="/assets/location-icon.png" alt="location"/>
         Invoke My Location
       </button>
+
+      <span>
+        {{ locationResult }}
+      </span>
     </div>
 
     <div>
@@ -45,6 +49,7 @@ import RollDice from '@/services/RollDice'
         search: null,
         loading: false,
         location: null,
+        locationResult: "Nada",
         long: null,
         lat: null,
         accuracy: null,
@@ -73,6 +78,7 @@ import RollDice from '@/services/RollDice'
         const result = await RollDice.getCoords (search)
         this.lat = result.data.lat
         this.long = result.data.lng
+        this.locationResult = result.data.displayName
         this.rollDice()
       },
 
