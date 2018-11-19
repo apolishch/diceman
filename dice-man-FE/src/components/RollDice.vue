@@ -1,15 +1,19 @@
 <template>
   <div>
-    <h1>Roll the dice</h1>
-    <div>
-      <button @click="getCurrentLocation">Get my location</button>
-    </div>
+    <img src="/assets/DicemanLogo.png" alt="Logo"/>
+
+    <!--
+        <div>
+        <button @click="getCurrentLocation">Get My Location</button>
+        </div>
+    -->
 
     <div>
       <label for="location">Co ordinates</label>
       <input name="location" type="text" v-model="location"/>
+
       <button class="rollButton" @click="rollDice">
-        <i class="fa fa-envelope-o"></i>
+        <img src="/assets/location-icon.png" alt="location"/>
         Invoke My Location
       </button>
     </div>
@@ -99,11 +103,19 @@ import RollDice from '@/services/RollDice'
 }
 
 .rollButton {
-    padding: 20px;
+    display: block;
+    margin: 20px auto;
+    padding: 18px 25px;
     background-color: #4A90E2;
     border: 1px solid white;
     border-radius: 3px;
     color: white;
+    vertical-align: middle;
+}
+
+.rollButton img {
+    height: 18px;
+    vertical-align: middle;
 }
 
 </style>
