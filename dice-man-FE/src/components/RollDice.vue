@@ -20,15 +20,17 @@
         <img src="/assets/location-icon.png" alt="location"/>
         Invoke Search
       </button>
-
-      <span>
-        {{ location }}
-      </span>
     </div>
 
     <div>
         <label for="search">Search Location</label>
         <input name="search" type="text" v-model="search"/>
+    </div>
+
+    <div class="locationDisplay">
+      <span>
+        {{ location }}
+      </span>
     </div>
 
     <button class="rollButton" @click="rollDice">
@@ -119,6 +121,10 @@ import RollDice from '@/services/RollDice'
 
 .dicemanLogoWrapper {
   margin-bottom: 10px;
+}
+
+.locationDisplay {
+  margin: 10px;
 }
 
 .rollButton {
