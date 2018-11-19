@@ -18,6 +18,7 @@ export default {
 <style>
 body {
   overflow: hidden;
+  margin: 0;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -25,6 +26,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: white;
-  margin-top: 60px;
+  background: url('/assets/Diceman-background.png') no-repeat center;
+  background-size: cover;
+  height: 100vh;
+}
+
+img {
+  width: 100%;
+  height: auto;
 }
 </style>

@@ -5,7 +5,7 @@ export default {
     return Api().post('/roll', coords)
   },
 
-  getCoords (search) {
+  searchLocation (search) {
     return Api().get('/geocode', {
       params: {
         search: search
