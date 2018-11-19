@@ -89,8 +89,6 @@ import RollDice from '@/services/RollDice'
       },
 
       async searchLocation (pos) {
-        console.log('pos', pos)
-        console.log('this', this)
         console.log('search', pos && pos.coords ? `${pos.coords.latitude}, ${pos.coords.longitude}` : this.search)
         const searchResult = await RollDice.searchLocation(pos && pos.coords ? `${pos.coords.latitude}, ${pos.coords.longitude}` : this.search)
         this.lat = searchResult.data.lat
