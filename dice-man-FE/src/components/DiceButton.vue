@@ -1,9 +1,6 @@
 <template>
   <div class="main">
    <div @mouseover="mouseOver" @mouseleave="mouseLeave" class="dice-container">
-      <div class="label" v-bind:class="{ showLabel: isActive }">
-          I'm Feeling Lucky
-      </div>
       <div class="dice" v-bind:class="{ activeDice: isActive }">
          <div class="front">
             <span></span>
@@ -122,6 +119,7 @@
       width: 60px;
       position: absolute;
       background-color: #4A90E2;
+      // background-color: black;
       border: 2px solid white;
    }
 

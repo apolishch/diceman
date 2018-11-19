@@ -42,27 +42,29 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="locationDisplay">
-      <span>
-        {{ location }}
-      </span>
-    </div>
-
-    <div @click="rollDice">
-      <DiceButton/>
-    </div>
-
-    <template v-if="rollResult">
-      <div class="event-card">
-        <h2>{{ rollResult }}</h2>
-        <!-- <h1>{{ rollResult.name }}</h1>
-        <img :src="rollResult.featured_image"> -->
+      <div class="locationDisplay">
+        <span>
+          You are here: {{ location }}
+        </span>
+        <span v-if="lat">
+          ({{ lat }}, {{ lng }})
+        </span>
       </div>
-    </template>
+      <div @click="rollDice">
+        <DiceButton/>
+      </div>
+      <template v-if="rollResult">
+        <div class="event-card">
+          <blockquote class="blockquote text-right">
+            <p v-html="rollResult" class="mb-0"/>
+            <footer class="blockquote-footer dicemanFooter">The Diceman</footer>
+          </blockquote>
+        </div>
+      </template>
+    </div>
 
     <div v-if="loading" class="loading">
-      <h1>Loading...</h1>
+      <!-- <h1>Loading...</h1> -->
     </div>
   </div>
 </template>
@@ -94,15 +96,24 @@ import RollDice from '@/services/RollDice'
 
     methods: {
       async rollDice () {
-        const eventResult  = await RollDice.getEvent({
-          lat: this.lat,
-          lng: this.lng
-        })
-        this.rollResult = eventResult.data
+        this.loading = true
+        try {
+          const eventResult = await RollDice.getEvent({
+            lat: this.lat,
+            lng: this.lng
+          })
+          console.log('eventResult', eventResult)
+          this.rollResult = eventResult.data
+          this.loading = false
+        } catch (e) {
+          console.log(e)
+          this.rollResult = 'I implore you to roll again'
+          this.loading = false
+        }
       },
 
       async getCurrentLocation () {
-        // this.loading = true
+        this.loading = true
         const options = {
           enableHighAccuracy: true,
           timeout: 5000,
@@ -122,6 +133,7 @@ import RollDice from '@/services/RollDice'
         } else {
           this.location = 'Invalid Search'
         }
+        this.loading = false
       },
 
       error (error) {
@@ -142,7 +154,7 @@ import RollDice from '@/services/RollDice'
   display: flex;
   justify-content: center;
   align-items: center;
-  background: white;
+  color: none;
 }
 
 .locationWrapper {
@@ -154,7 +166,7 @@ import RollDice from '@/services/RollDice'
 }
 
 .locationDisplay {
-  margin: 10px;
+  margin: 30px 30px 0px 30px;
 }
 
 .buttonStyling {
@@ -195,9 +207,26 @@ import RollDice from '@/services/RollDice'
   border: none;
 }
 
+.event-card {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
 .primaryButton img {
     width: 18px;
     vertical-align: middle;
 }
+
+.dicemanFooter {
+  color: white;
+}
+
+/* .blockquote {
+  p:before {
+    content: "&amp;"
+    font-size: 3rem;
+    font-weight: 900;
+  }
+} */
 
 </style>
