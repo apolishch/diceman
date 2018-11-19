@@ -1,6 +1,6 @@
 'use strict'
 const axios = require('axios')
-const moment = require('moment')
+const moment = require('moment-timezone')
 const dayOfWeekMapping = require('../consts/dayOfWeekMapping').dayOfWeekMapping
 const hourSanitizer = require('../utils/hourSanitizer').hourSanitizer
 
@@ -178,7 +178,7 @@ const generateSuggestion = (lat, lng) => {
         const item = randomizer(result.data.results)
         console.log('item', item)
         return reverseGeocode(item.location[1], item.location[0]).then(res => {
-          return `Go watch ${item.title} \n starting ${moment(item.start).format('HH:mm')} \n at ${res.data.display_name}`
+          return `Go watch ${item.title} \n starting ${moment.tz(item.start, item.timezone).format('HH:mm')} \n at ${res.data.display_name}`
         })
       }).catch(e => {
         console.log('e', e)

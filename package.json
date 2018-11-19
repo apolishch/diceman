@@ -24,6 +24,7 @@
     "gulp": "3.9.1",
     "gulp-babel": "8.0.0",
     "moment": "^2.22.2",
+    "moment-timezone": "^0.5.23",
     "morgan": "^1.9.0",
     "node-sass": "^4.10.0"
   },
