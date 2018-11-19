@@ -17,6 +17,11 @@
         Invoke My Location
       </button>
 
+      <button class="rollButton" @click="rollTarget">
+        <img src="/assets/location-icon.png" alt="location"/>
+        Invoke Search
+      </button>
+
       <span>
         {{ locationResult }}
       </span>
@@ -24,7 +29,7 @@
 
     <div>
         <label for="search">Search Location</label>
-        <input @click="getNewLocation" name="search" type="text" v-model="search"/>
+        <input name="search" type="text" v-model="search"/>
     </div>
 
     <template v-if="rollResult">
@@ -73,13 +78,13 @@ import RollDice from '@/services/RollDice'
         this.rollResult = result.data
       },
 
-      async getNewLocation () {
-        const search = this.search
-        const result = await RollDice.getCoords (search)
-        this.lat = result.data.lat
-        this.long = result.data.lng
-        this.locationResult = result.data.displayName
-        this.rollDice()
+      async rollTarget () {
+        const searchResult = await RollDice.getCoords(this.search)
+        const eventResult  = await RollDice.getEvent({
+          lat: searchResult.data.lat,
+          lng: searchResult.data.lng
+        })
+        this.rollResult = eventResult.data
       },
 
       getCurrentLocation () {

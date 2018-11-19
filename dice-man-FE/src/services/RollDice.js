@@ -7,7 +7,9 @@ export default {
 
   getCoords (search) {
     return Api().get('/geocode', {
-      search: search
+      params: {
+        search: search
+      }
     })
   }
 }
