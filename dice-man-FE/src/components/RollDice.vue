@@ -130,7 +130,7 @@ import RollDice from '@/services/RollDice'
 }
 
 .dicemanLogoWrapper {
-  margin-bottom: 10px;
+  padding: 20px;
 }
 
 .locationDisplay {
