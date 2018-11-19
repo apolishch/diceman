@@ -54,6 +54,9 @@ const generateSuggestion = (lat, lng) => {
         const cinemas = buildingsResponse.data
         const cinema = randomizer(cinemas)
         return `Watch ${movie.title} at ${cinema.name}, location ${cinema.lat}, ${cinema.lon}`
+      }).catch(e => {
+        console.log('e', e)
+        return `Suck a dick`
       })
     case 'wildcard':
       return Promise.resolve().then(() => {
